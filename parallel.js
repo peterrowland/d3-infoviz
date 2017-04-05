@@ -1,5 +1,8 @@
 // Gradient coloring
 // https://syntagmatic.github.io/parallel-coordinates/
+
+<script src="d3.v3.min.js"></script>
+
 var color_gradient = d3.scale.linear()
     .domain([0, 200])
     .range(["steelblue", "brown"])
