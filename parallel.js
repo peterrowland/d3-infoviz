@@ -26,7 +26,7 @@ var svg = d3.select("#parallel-coords").append("svg")
 
 // Tooltip object on mouse-over
 // source: http://bl.ocks.org/ABSegler/9791707
-var tooltip = d3.select("body")
+var tooltip = d3.select("#parallel-coords")
     .append("div")
     .style("position", "absolute")
     .style("z-index", "10")
