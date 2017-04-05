@@ -1,6 +1,5 @@
 // Gradient coloring
 // https://syntagmatic.github.io/parallel-coordinates/
-
 var color_gradient = d3.scale.linear()
     .domain([0, 200])
     .range(["steelblue", "brown"])
@@ -19,7 +18,7 @@ var line = d3.svg.line(),
     background,
     foreground;
 
-var svg = d3.select("body").append("svg")
+var svg = d3.select("#parallel-coords").append("svg")
     .attr("width", width + margin.left + margin.right)
     .attr("height", height + margin.top + margin.bottom)
   .append("g")
