@@ -54,12 +54,12 @@ svg {
 /* styling options for the drop down*/
 /* for color options: https://www.w3schools.com/colors/colors_picker.asp */
 select  {
-    outline: 1;
+    outline: 0;
     overflow: hidden;
     height: 30px;
     width: 75px;
-    background: #b2cc22;
-    color: #243133;
+    background: #e6e6e6;
+    color: #2c343c;
     border: #2c343c;
     padding: 5px 3px 5px 10px;
     -moz-border-radius: 6px;
@@ -70,6 +70,13 @@ select  {
 select option {
   border: 1px solid #000;
   background: #010;
+}
+
+#unipara{
+  color: #434c10;
+  font-family: "Times New Roman", Times, serif;
+  font-size: 20px;
+  font-style: bold;
 }
 
 
@@ -124,7 +131,7 @@ color: #333;
 
 <body>
 
-<h1> D3 Assign </h1>
+<h1> D3 Assignment </h1>
   <div id="parallel-coords">
     <h2> Top 200 Colleges and Universities, 2016 </h2>
   </div>
@@ -141,12 +148,20 @@ color: #333;
 <br><br><br><br><br><br><br><br><br><br><br>
 <br><br><br><br><br><br><br><br><br><br><br>
 
-<div id="dropdown" style="display:block">
+<div id="dropdown" style="display:block" class="dropdown">
+  <label class="ddlabel"> Choose a year: </label>
 <select id = "option" onchange="OnChangeFunction(this)">
 <option value="year1">2014</option>
-<option value="year2" selected="selected">2015</option>
-<option value="year3">2016</option>
+<option value="year2" >2015</option>
+<option value="year3" selected="selected">2016</option>
 </select>
+</div>
+
+<div id="uniparadiv">
+  <h3>The top universities are- </h3>
+
+  <p id="unipara"> </p>
+
 </div>
 </div>
 
@@ -156,6 +171,8 @@ color: #333;
 <script type="text/javascript" src='parallel.js'></script>
 <script type="text/javascript">
 
+document.getElementById("unipara").innerHTML = " 1. CalTech University with a total score of 95.2 <br> 2. Oxford University with a total score of 94.2 <br> 3. Stanford University with a total score of 93.9";
+
   function OnChangeFunction(option){
   // Code adapted from: http://stackoverflow.com/questions/1085801/get-selected-value-in-dropdown-list-using-javascript
 
@@ -164,16 +181,20 @@ color: #333;
     if(e.options[e.selectedIndex].value=="year1"){
       RadarChart.defaultConfig.levelTick = true;
       RadarChart.draw("#chart1", year1);
+      document.getElementById("unipara").innerHTML = " 1. CalTech University with a total score of 94.9 <br> 2. Harvard University and Oxford University with a total score of 93.9";
     }
 
     if(e.options[e.selectedIndex].value=="year2"){
       RadarChart.defaultConfig.levelTick = true;
       RadarChart.draw("#chart1", year2);
+      document.getElementById("unipara").innerHTML = " 1. Caltech University with a total score of 94.3 <br> 2. Harvard University with a total score of 93.3 <br> 3. Oxford  University with a total score of 93.2";
+
     }
 
     if(e.options[e.selectedIndex].value=="year3"){
       RadarChart.defaultConfig.levelTick = true;
       RadarChart.draw("#chart1", year3);
+      document.getElementById("unipara").innerHTML = " 1. CalTech University with a total score of 95.2 <br> 2. Oxford University with a total score of 94.2 <br> 3. Stanford University with a total score of 93.9";
     }
   };
 
@@ -287,7 +308,7 @@ color: #333;
 
             RadarChart.defaultConfig.color = function() {};
               RadarChart.defaultConfig.radius = 3;
-              RadarChart.defaultConfig.w = 350;
+              RadarChart.defaultConfig.w = 400;
               RadarChart.defaultConfig.h = 350;
 
               var chart = RadarChart.chart();
