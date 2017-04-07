@@ -5,7 +5,7 @@ var color_gradient = d3.scale.linear()
     .range(["steelblue", "brown"])
     .interpolate(d3.interpolateLab);
 
-var margin = {top: 30, right: 10, bottom: 10, left: 10},
+var margin = {top: 30, right: 0, bottom: 10, left: 0},
     width = 960 - margin.left - margin.right,
     height = 500 - margin.top - margin.bottom;
 
@@ -80,8 +80,8 @@ d3.csv("2016-filtered.csv", function(error, schools) {
       	d3.select(this).transition().duration(100)
       	    .style({'stroke' : '#F00'})
             .style({"stroke-width" : "2"});
-      	tooltip.text(n['university_name']);
-        // tooltip.text(d['university_name']);
+      	// tooltip.text(n['university_name']);
+        tooltip.text('#' + n['world_rank'] + ' '.concat(n['university_name']));
       	return tooltip.style("visibility", "visible");
           })
       //** Update tooltip position to follow mouse

@@ -2,9 +2,78 @@
 <meta charset="utf-8">
 <style>
 
+/* General */
+
+body {
+  font-family: arial;
+  padding: 20px;
+}
+
 svg {
   font: 10px sans-serif;
 }
+
+/* Radar Chart */
+
+.radar-chart .area {
+  fill-opacity: 0.5;
+}
+.radar-chart.focus .area {
+  fill-opacity: 0.3;
+}
+.radar-chart.focus .area.focused {
+  fill-opacity: 0.9;
+}
+.area.CalTech, .CalTech .circle {
+  fill: #FFD700;
+  stroke: none;
+}
+.area.Harvard, .Harvard .circle {
+  fill: #ADD8E6;
+  stroke: none;
+}
+.area.Oxford, .Oxford .circle {
+  fill: #94ce37;
+  stroke: none;
+}
+.area.Stanford, .Stanford .circle {
+  fill: #94ce37;
+  stroke: none;
+}
+
+/* styling for drop down label*/
+
+.ddlabel{
+  color: #434c10;
+  font-family: "Times New Roman", Times, serif;
+  font-size: 25px;
+  font-style: bold;
+
+}
+
+/* styling options for the drop down*/
+/* for color options: https://www.w3schools.com/colors/colors_picker.asp */
+select  {
+    outline: 1;
+    overflow: hidden;
+    height: 30px;
+    width: 75px;
+    background: #b2cc22;
+    color: #243133;
+    border: #2c343c;
+    padding: 5px 3px 5px 10px;
+    -moz-border-radius: 6px;
+    -webkit-border-radius: 6px;
+    border-radius: 10px;
+}
+
+select option {
+  border: 1px solid #000;
+  background: #010;
+}
+
+
+/* Parallel Coords */
 
 .background path {
   fill: none;
@@ -36,8 +105,7 @@ svg {
 }
 
 .tooltip {
-
-background-color: rgba(220,220,220,0.5);
+background-color: rgba(220,220,220,1);
 color: #333;
           margin: 10px;
           height: 25px;
@@ -49,23 +117,256 @@ color: #333;
     border-radius:10px;
 }
 
-#parallel_coords {
-width: 500px;
-
-}
-
 
 </style>
+<script type="text/javascript" src='d3.v3.min.js'></script>
+<script type="text/javascript" src="./src/radar-chart.js"></script>
 
 <body>
 
 <h1> D3 Assign </h1>
-<div id="parallel-coords">
-<p> Parallel-coordinate chart </p>
+  <div id="parallel-coords">
+    <h2> Parallel-coordinate chart </h2>
+  </div>
+  <br/>
+
+<h2> Scores of top 3 universities in the last 3 years</h2>
+  <div id='charts' >
+
+      <div id='chart1' style="float:left"></div>
+
+  </div>
+
+
+<br><br><br><br><br><br><br><br><br><br><br>
+<br><br><br><br><br><br><br><br><br><br><br>
+
+<div id="dropdown" style="display:block">
+<select id = "option" onchange="OnChangeFunction(this)">
+<option value="year1">2011</option>
+<option value="year2" selected="selected">2012</option>
+<option value="year3">2013</option>
+</select>
+</div>
 </div>
 
+</body>
+
+
+<script type="text/javascript" src='parallel.js'></script>
+<script type="text/javascript">
+
+  function OnChangeFunction(option){
+  // Code adapted from: http://stackoverflow.com/questions/1085801/get-selected-value-in-dropdown-list-using-javascript
+
+    var e = document.getElementById("option");
+
+    if(e.options[e.selectedIndex].value=="year1"){
+      RadarChart.defaultConfig.levelTick = true;
+      RadarChart.draw("#chart1", year1);
+    }
+
+    if(e.options[e.selectedIndex].value=="year2"){
+      RadarChart.defaultConfig.levelTick = true;
+      RadarChart.draw("#chart1", year2);
+    }
+
+    if(e.options[e.selectedIndex].value=="year3"){
+      RadarChart.defaultConfig.levelTick = true;
+      RadarChart.draw("#chart1", year3);
+    }
+  };
+
+    // RadarChart.defaultConfig.color = function() {};
+    // RadarChart.defaultConfig.radius = 3;
+
+  var year1 = [{
+          className: 'Harvard',
+          axes: [
+          {axis: "total_score", value: 93.9},
+            {axis: "teaching", value: 95.3},
+            {axis: "international", value: 66.2},
+            {axis: "research", value: 98.5},
+            {axis: "citations", value: 99.1},
+            {axis: "income", value: 40.6}
+
+          ]
+        },
+        {className: 'CalTech',axes: [
+         {axis: "total_score", value: 94.9},
+            {axis: "teaching", value: 94.4},
+            {axis: "international", value: 65.8},
+            {axis: "research", value: 98.2},
+            {axis: "citations", value: 99.8},
+            {axis: "income", value: 91.2}
+
+          ]},
+
+        {
+          className: 'Oxford',
+          axes: [
+           {axis: "total_score", value: 93.9},
+            {axis: "teaching", value: 89},
+            {axis: "international", value: 90.2},
+            {axis: "research", value: 98.5},
+            {axis: "citations", value: 95.4},
+            {axis: "income", value: 90.3}
+
+          ]
+        }];
+  var year2 = [{
+          className: 'Harvard',
+          axes: [
+          {axis: "total_score", value: 93.3},
+            {axis: "teaching", value: 92.9},
+            {axis: "international", value: 67.6},
+            {axis: "research", value: 98.6},
+            {axis: "citations", value: 98.9},
+            {axis: "income", value: 44}
+
+          ]
+        },
+        {
+          className: 'Oxford',
+          axes: [
+          {axis: "total_score", value: 93.2},
+            {axis: "teaching", value: 88.6},
+            {axis: "international", value: 90.7},
+            {axis: "research", value: 97.7},
+            {axis: "citations", value: 95.5},
+            {axis: "income", value: 72.9}
+
+          ]
+        },
+        {className: 'CalTech',axes: [
+        {axis: "total_score", value: 94.3},
+            {axis: "teaching", value: 92.2},
+            {axis: "international", value: 67},
+            {axis: "research", value: 98.1},
+            {axis: "citations", value: 99.7},
+            {axis: "income", value: 89.1}
+
+          ]}
+
+        ];
+  var year3 = [{className: 'CalTech',axes: [
+  {axis: "total_score", value: 95.2},
+            {axis: "teaching", value: 95.6},
+            {axis: "international", value: 64},
+            {axis: "research", value: 97.6},
+            {axis: "citations", value: 99.8},
+            {axis: "income", value: 97.8}
+
+          ]},
+          {
+          className: 'Oxford',
+          axes: [
+          {axis: "total_score", value: 94.2},
+            {axis: "teaching", value: 86.5},
+            {axis: "international", value: 94.4},
+            {axis: "research", value: 98.9},
+            {axis: "citations", value: 98.8},
+            {axis: "income", value: 73.1}
+
+          ]
+        },
+        {
+          className: 'Stanford',
+          axes: [
+          {axis: "total_score", value: 93.9},
+            {axis: "teaching", value: 92.5},
+            {axis: "international", value: 76.3},
+            {axis: "research", value: 96.2},
+            {axis: "citations", value: 99.9},
+            {axis: "income", value: 63.3}
+
+          ]
+        }];
+
+        // <script type="text/javascript">
+
+            RadarChart.defaultConfig.color = function() {};
+              RadarChart.defaultConfig.radius = 3;
+              RadarChart.defaultConfig.w = 350;
+              RadarChart.defaultConfig.h = 350;
+
+              var chart = RadarChart.chart();
+              var cfg = chart.config();
+              RadarChart.defaultConfig.levelTick = true;
+              RadarChart.draw("#chart1", year3);
+
+
+
+  // var uni1;
+  //  $('#university1').change(function() {
+  //       uni1 = $('#university1 option:selected').text();
+  //     });
+  // commented on apr 5
+  // d3.select('#option')
+  //   .on('change', function() {
+  //     var newData = eval(d3.select(this).property('value'));
+  //     updateLegend(newData);
+
+  // });
+
+  // commented on apr 5
+      function randomDataset() {
+        return data.map(function(d) {
+          return {
+            className: d.className,
+            axes: d.axes.map(function(axis) {
+              return {axis: axis.axis, value: axis.value};
+            })
+          };
+        });
+      }
+</script>
+  <!-- </head> -->
+
+     <!-- <h2> Scores of top 3 universities in the last 3 years</h2>
+      <div id='charts'>
+
+        <div id='chart1' style="float:left"></div>
+       <!--  <div id='chart2' style="float:left"></div>
+        <div id='chart3' style="float:left"></div> -->
+        <!-- </div> -->
+
+           <!-- <div id='charts2015'>
+
+        <div id='chart1' style="float:left"></div>
+        <div id='chart2' style="float:left"></div>
+        <div id='chart3' style="float:left"></div>
+        </div>
+
+           <div id='charts2014'>
+
+        <div id='chart1' style="float:left"></div>
+        <div id='chart2' style="float:left"></div>
+        <div id='chart3' style="float:left"></div>
+        </div> -->
+
+  <!-- <body> -->
+
+
+   <br><br><br><br><br><br><br><br><br><br><br>
+    <br><br><br><br><br><br><br><br><br><br><br>
+
+  <!--Code adapted from: https://www.aspsnippets.com/Articles/Get-selected-Text-and-Value-of-DropDownList-in-OnChange-event-using-JavaScript-and-jQuery.aspx -->
+  <!-- <div id="dropdown" style="display:block" class="dropdown">
+    <label class="ddlabel"> Choose a year: </label>
+  <select id = "option" onchange="OnChangeFunction(this)">
+  <option value="year1">2014</option>
+  <option value="year2" >2015</option>
+  <option value="year3" selected="selected">2016</option>
+  </select>
+  </div> -->
 
 </body>
-<script src="d3.v3.min.js"></script>
-<script src='parallel.js'></script>
+<!-- <script type="text/javascript" src='radar.js'</script> -->
+
+
+    <!-- <script type="text/javascript" src="//d3js.org/d3.v3.js"></script>
+    <script type="text/javascript" src="../src/radar-chart.js"></script> -->
+
+
 </html>
